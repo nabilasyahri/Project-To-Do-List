@@ -58,7 +58,7 @@ begin
         end;
 end;
 
-procedure tandai(var list: array of task; jumlah: integer);
+procedure tandai(var list: array of task; jumlah: integer); {procedure untuk fitur, nandai kegiatannya udh slesai atau blm}
 var
     nomor: integer;
 begin
