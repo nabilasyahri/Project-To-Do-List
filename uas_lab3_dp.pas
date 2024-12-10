@@ -50,7 +50,7 @@ begin
                 writeln(i, '. ', nama);
                 writeln('   Waktu: ', desk);
 
-                if statusz then
+                if statusz then  { untuk ngecek nilai dari si statusz ini }
                     writeln('   Status: Selesai')
                 else
                     writeln('   Status: Belum selesai');
