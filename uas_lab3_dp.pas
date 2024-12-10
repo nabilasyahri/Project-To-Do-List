@@ -16,7 +16,7 @@ procedure tambah(var list: array of task; var jumlah: integer); {procedure untuk
 var
     baru: task;
 begin
-    if jumlah < 10 then
+    if jumlah < 10 then {maksimal kegiatannya 10}
     begin
         with baru do 
         begin
