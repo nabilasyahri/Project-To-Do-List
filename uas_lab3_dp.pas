@@ -12,7 +12,7 @@ var
     tasks: array[1..10] of task;
     jumlah: integer;            
 
-procedure tambah(var list: array of task; var jumlah: integer);
+procedure tambah(var list: array of task; var jumlah: integer); {procedure untuk fitur programnya nnti}
 var
     baru: task;
 begin
