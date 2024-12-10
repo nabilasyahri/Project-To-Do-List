@@ -34,7 +34,7 @@ begin
         writeln('Daftar penuh!! >__<');
 end;
 
-procedure tampil(const list: array of task; jumlah: integer);
+procedure tampil(const list: array of task; jumlah: integer); {procedure untuk fitur programnya, nampilin kegiatan}
 var
     i: integer;
 begin
