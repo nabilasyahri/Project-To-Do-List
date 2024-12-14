@@ -4,7 +4,7 @@ uses crt;
 type
     task = record
         nama: string[100];
-        desk: string[200];
+        jam, menit: integer;
         statusz: boolean;
     end;
 
@@ -12,29 +12,48 @@ var
     tasks: array[1..10] of task;
     jumlah: integer;            
 
-procedure tambah(var list: array of task; var jumlah: integer); {procedure untuk fitur programnya nnti, nambahin kegiatan}
+procedure tambah(var list: array of task; var jumlah: integer);
 var
     baru: task;
 begin
-    if jumlah < 10 then {maksimal kegiatannya 10}
+    if jumlah < 10 then
     begin
         with baru do 
         begin
             write('Masukkan nama kegiatan: ');
             readln(nama);
-            write('Kapan kegiatan ingin dilakukan? (00:00-23:00): ');
-            readln(desk);
+            writeln('Kapan kegiatan ingin dilakukan?: ');
+            write ('Masukkan jam(00-23): ');
+            readln(jam);
+
+            write('Masukkan menit(00-59): ');
+            readln(menit);
+            
             statusz:= false;  { kegiatan baru belum selesaaii }
             jumlah := jumlah + 1;
             list[jumlah] := baru;
+
+             if (jam > 23) then
+            begin
+                writeln ('Jam tidak valid');
+            end;
+              
+            if (menit > 59) then
+            begin
+                writeln ('Menit tidak valid ');
+            end;
+            if (jam <= 23) and (menit <= 59) then
+            begin
             writeln('Kegiatan berhasil ditambahkan!');
+            end
+
         end;
     end
     else
-        writeln('Daftar penuh!! >__<');
+        writeln('Daftar penuh!! ><');
 end;
 
-procedure tampil(const list: array of task; jumlah: integer); {procedure untuk fitur programnya, nampilin kegiatan}
+procedure tampil(const list: array of task; jumlah: integer);
 var
     i: integer;
 begin
@@ -47,18 +66,37 @@ begin
         begin
             with list[i] do 
             begin
-                writeln(i, '. ', nama);
-                writeln('   Waktu: ', desk);
+                 if (jam <= 23) and (menit <= 59) then
+                begin
 
-                if statusz then  { untuk ngecek nilai dari si statusz ini }
+                writeln(i, '. ', nama);
+               
+                if (menit < 10) and (jam < 10) then 
+                begin
+                writeln('   Waktu: 0', jam, ':0', menit)
+                end
+                else if (menit < 10) and (jam >= 10) then 
+                    begin
+                        writeln('   Waktu: ', jam, ':0', menit)
+                end
+                else if (menit >= 10) and (jam < 10) then 
+                begin
+                writeln('   Waktu: 0', jam, ':', menit);
+                end;
+                
+            
+                if statusz then
                     writeln('   Status: Selesai')
                 else
-                    writeln('   Status: Belum selesai');
+                    writeln('   Status: Belum selesai')
+                end
+                else
+                writeln ('Tidak ada kegiatan');
             end;
         end;
 end;
 
-procedure tandai(var list: array of task; jumlah: integer); {procedure untuk fitur, nandai kegiatannya udh slesai atau blm}
+procedure tandai(var list: array of task; jumlah: integer);
 var
     nomor: integer;
 begin
@@ -84,28 +122,31 @@ var
 begin
     clrscr;
 
-    writeln('Selamat datang! >__<');
+    writeln('Selamat datang! ><');
     write('Masukkan nama Anda: ');
     readln(nama);
+    writeln;
 
     jumlah := 0;  
     
     repeat
-        writeln('----------Program To-Do List---------');
-        writeln('Haloo ', nama, ', apa yang ingin anda lakukan?');
-        writeln('Fitur-fitur:');
-        writeln('1. Tambah kegiatan');
-        writeln('2. Tampilkan semua kegiatan');
-        writeln('3. Tandai kegiatan selesai');
-        writeln('4. Keluar');
-        write('Masukkan nomor (1-4): ');
+
+        writeln ('-------------------Program To-Do-List-------------------');
+        writeln ('Haloo ', nama, ', apa yang ingin anda lakukan hari ini?');
+        writeln ('No.   Fitur-fitur:');
+        writeln ('1.    Tambah kegiatan');
+        writeln ('2.    Tampilkan semua kegiatan');
+        writeln ('3.    Tandai kegiatan selesai');
+        writeln ('4.    Keluar');
+        writeln;
+        write ('Masukkan nomor untuk mengaktifkan fitur (1-4): ');
         readln(n);
 
         case n of
-        1: tambah(tasks, jumlah);
-        2: tampil(tasks, jumlah);
-        3: tandai(tasks, jumlah);
-        4: writeln('Selamat beraktivitas! Semoga hari Anda seruu ^___^');
+        1: tambah   (tasks, jumlah);
+        2: tampil   (tasks, jumlah);
+        3: tandai   (tasks, jumlah);
+        4: writeln  ('Selamat beraktivitas! Semoga hari Anda seruu ^_^');
         else
         writeln('Pilihan tidak valid. Silakan coba lagi.');
         end;
